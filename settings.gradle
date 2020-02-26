@@ -1,0 +1,2 @@
+include ':library', ':plugin', ':demo'
+rootProject.name = 'timetracer'

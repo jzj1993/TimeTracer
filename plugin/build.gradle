@@ -1,0 +1,12 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation localGroovy()
+    implementation gradleApi()
+    implementation 'com.android.tools.build:gradle:3.5.3'
+    implementation 'org.javassist:javassist:3.20.0-GA'
+}

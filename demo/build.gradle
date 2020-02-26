@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+apply plugin: 'TimeTracer'
+TimeTracer {
+    // 指定要处理的完整类名，支持正则表达式匹配，可以过滤特定的包，
+    // 不指定则默认处理所有类（TimeTracer自身的实现除外）
+//    processClassesRegex 'com\\.paincker\\.timetracer\\.demo.*'
+    // 指定插入到方法开头和结束处的代码，
+    // 支持简单变量，包括<class-name>，<simple-class-name>，<method-name>
+    codeBeforeMethod "com.paincker.timetracer.tracer.TimeTracer.methodStart(\"<simple-class-name>.<method-name>\");";
+    codeAfterMethod "com.paincker.timetracer.tracer.TimeTracer.methodEnd(\"<simple-class-name>.<method-name>\");";
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.paincker.timetracer.demo"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation project(path: ':library')
+}
